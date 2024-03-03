@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const AuthContext = createContext();
 
@@ -48,7 +48,6 @@ function AuthProvider({ children }) {
       setUser(username);
       toast.success("Successfully logged in");
     }
-    console.log(username, password);
   }
 
   async function registerUser({
@@ -92,6 +91,7 @@ function AuthProvider({ children }) {
       }}
     >
       {children}
+      <Toaster />
     </AuthContext.Provider>
   );
 }
