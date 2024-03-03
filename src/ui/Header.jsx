@@ -100,14 +100,13 @@ const Styled_LogoutBtn = styled.button`
 function Header({ isHidden, setIsHidden }) {
   const { logged, logout } = useAuth();
 
-  const Styled_MenuBtn = styled.button`
-    color: #ccc;
-    font-size: 30px;
-    background-color: #011627;
-    border: none;
-    position: fixed;
-    top: 20px;
+  const Styled_MenuBtn = styled.img`
+  
+  width:30px;  
+  position: fixed;
+    // top: 15px;
     left: 30px;
+    position:fixed;
     ${isHidden && logged ? "" : "display:none;top:0;"}
     &:hover {
       color: white;
@@ -117,9 +116,9 @@ function Header({ isHidden, setIsHidden }) {
   return (
     <Styled_Header>
       <Styled_Container>
-        <Styled_MenuBtn onClick={() => setIsHidden(!isHidden)}>
+       <Styled_MenuBtn onClick={() => setIsHidden(!isHidden)} 
+        src ="https://avatar.iran.liara.run/public/boy?username=Ash"/>
           <IoIosMenu />
-        </Styled_MenuBtn>
         <Styled_SearchBtn>
           <IoIosSearch />
         </Styled_SearchBtn>
