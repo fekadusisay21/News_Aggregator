@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./context/AuthContext";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./utils/PrivateRoute";
-
+import EditProfile from "./ui/EditProfile";
 function App() {
   return (
     <div>
@@ -25,6 +25,7 @@ function App() {
               />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/editprofile" element={<EditProfile/>}/>
             </Route>
           </Routes>
         </AuthProvider>

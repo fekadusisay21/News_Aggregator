@@ -1,27 +1,33 @@
 /* eslint-disable react/prop-types */
 import {
-  FaAngleDoubleLeft,
   FaFlag,
   FaGlobe,
   FaHome,
   FaKey,
   FaShare,
 } from "react-icons/fa";
-import { IoIosMenu } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const Styled_NavLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  font-family: monospace;
   border-radius: 5px;
-  margin: 20px 0;
+  margin: 8px 0;
   color: #fff;
   font-size: 16px;
   text-decoration: none;
   text-align: center;
-  width: 90%;
-  padding: 15px 0;
-  transition: ease-out;
-  transition-duration: 200ms;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+  }
+
   &:hover {
     background-color: #4f46e5;
     span {
@@ -36,7 +42,7 @@ const Styled_ToggleBtn = styled.button`
   font-size: 20px;
   background-color: #011627;
   border: none;
-  margin: 20px 80% 0 20%;
+  margin: 20px auto 0;
 
   &:hover {
     color: white;
@@ -44,78 +50,88 @@ const Styled_ToggleBtn = styled.button`
   }
 `;
 
-const Styled_MenuBtn = styled.button`
-  color: #ccc;
-  font-size: 30px;
-  background-color: #011627;
+const Styled_Sidebar = styled.div`
+  width: 12%;
+  position: absolute;
+  top: 8%;
+  bottom: 0;
+  background-color: #121621;
+  padding: 0 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  ${props => props.isHidden ? "display:none;transition: ease-out;transition-duration: 200ms;" : ""}
+`;
+
+const Styled_Profile = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+  text-align: center;
+`;
+const Styled_Button = styled.button`
+  width: 100px;
+  background-color: #4f46e5;
   border: none;
-  position: fixed;
-  top: 35px;
-  left: 30px;
-
-  &:hover {
-    color: white;
-    cursor: pointer;
-  }
+  margin-top: 10px;
+  color:#ffffff;
 `;
 
-const Styled_Span = styled.span`
-  padding-right: 8px;
+const Styled_Img = styled.img`
+  width: 30px;
 `;
-
+const Styled_Info =styled.div`
+font-size:12px;
+display-flex;
+`;
 function Sidebar({ isHidden, setIsHidden }) {
-  const Styled_Sidebar = styled.div`
-    width: 12%;
-    position: absolute;
-    top: 8%;
-    bottom: 0;
-    background-color: #121621;
-    padding: 10px 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    ${isHidden
-      ? "display:none;transition: ease-out;transition-duration: 200ms;"
-      : ""}
-  `;
   return (
     <div>
-      <Styled_Sidebar>
-        <Styled_MenuBtn>
-          <IoIosMenu />
-        </Styled_MenuBtn>
+      <Styled_Sidebar isHidden={isHidden}>
         <Styled_ToggleBtn onClick={() => setIsHidden(!isHidden)}>
-          <FaAngleDoubleLeft />
+          <Styled_Profile>
+            <Styled_Img src="https://avatar.iran.liara.run/public/boy?username=Ash" />
+            <Styled_Info>
+            <p>User name</p>
+            <p>Email</p>
+            </Styled_Info>
+            
+            <Link to="/editprofile">
+              <Styled_Button>Edit profile</Styled_Button>
+            </Link>
+          </Styled_Profile>
         </Styled_ToggleBtn>
-        <Styled_NavLink to="/home">
-          <Styled_Span>
+
+        <Styled_NavLink to="/">
+          <span>
             <FaHome />
-          </Styled_Span>
+          </span>
           Home
         </Styled_NavLink>
-        <Styled_NavLink to="/home">
-          <Styled_Span>
+        <Styled_NavLink to="/bookmark">
+          <span>
             <FaFlag />
-          </Styled_Span>
+          </span>
           Bookmark
         </Styled_NavLink>
-        <Styled_NavLink to="/home">
-          <Styled_Span>
+        <Styled_NavLink to="/news">
+          <span>
             <FaGlobe />
-          </Styled_Span>
+          </span>
           News
         </Styled_NavLink>
-        <Styled_NavLink to="/home">
-          <Styled_Span>
+        <Styled_NavLink to="/share">
+          <span>
             <FaShare />
-          </Styled_Span>
+          </span>
           Share
         </Styled_NavLink>
-        <Styled_NavLink to="/home">
-          <Styled_Span>
+        <Styled_NavLink to="/key">
+          <span>
             <FaKey />
-            Key
-          </Styled_Span>
+          </span>
+          key
         </Styled_NavLink>
       </Styled_Sidebar>
     </div>
