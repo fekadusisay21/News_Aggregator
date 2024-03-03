@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FaWindowClose } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
 const Styled_Container = styled.div`
   background-color: #ccc;
@@ -47,13 +48,19 @@ const Styled_CloseBtn = styled.button`
 function Login() {
   const { logUser } = useAuth();
   const navigate = useNavigate();
-  function handleSubmit(e) {
-    const userData = {};
-    userData.username = e.target[0].value;
-    userData.password = e.target[1].value;
-    e.preventDefault();
-    logUser(userData);
-  }
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log("data", data);
+    console.log(register);
+    console.log(logUser);
+  };
+  //   function handleSubmit(e) {
+  //     const userData = {};
+  //     userData.username = e.target[0].value;
+  //     userData.password = e.target[1].value;
+  //     e.preventDefault();
+  //     logUser(userData);
+  //   }
 
   return (
     <Styled_Container>
@@ -62,7 +69,7 @@ function Login() {
       </Styled_CloseBtn>
       <Styled_Title>Login</Styled_Title>
       <Styled_Hr />
-      <form action="" method="POST" onSubmit={handleSubmit}>
+      <form action="" method="POST" onSubmit={handleSubmit(onSubmit)}>
         <Input type="text" label="Username" id="username" name="username" />
         <Input type="password" label="Password" id="password" name="password" />
         <Styled_Span>

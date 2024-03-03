@@ -1,13 +1,18 @@
 import styled from "styled-components";
+import Button from "./Button";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
-import { useRef } from "react"; 
-const EditProfile = () => {
+import { useRef } from "react";
+import { IoIosClose } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+
+function EditProfile() {
+  const navigate = useNavigate();
   const fileInput = useRef();
-  function handleClick(){
-    fileInput.current.click()
+  function handleClick() {
+    fileInput.current.click();
   }
   const Container = styled.div`
-    font-family: monospace;
+    font-family: sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,14 +20,15 @@ const EditProfile = () => {
     height: 60vh;
     background-color: #121621;
     border-radius: 5px;
+    margin-top: 12.5%;
   `;
 
   const FormContainer = styled.div`
     background-color: #121621;
-    padding: 10px;
+    padding: 20px 80px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    text-align: center;
   `;
 
   const FormTitle = styled.h2`
@@ -38,37 +44,25 @@ const EditProfile = () => {
   `;
 
   const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: transparent;
-  margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    margin-right: 10px;
 
-  svg {
-    color: #fff;
-    font-size: 16px;
-  }
-`;
-const Button = styled.button`
-padding: 5px 10px;
-background-color: #4f46e5;
-color: #fff;
-border: none;
-border-radius: 10px;
-font-size: 12px;
-cursor: pointer;
-&:hover {
-  background-color: #0000ff;
-}
-`;
+    svg {
+      color: #fff;
+      font-size: 16px;
+    }
+  `;
   const Styled_Img = styled.img`
-  margin-left:20px;
-  width: 30px;
-  cursor:pointer;
-`;
-const Input = styled.input`
+    margin-bottom: 4px;
+    width: 30px;
+    cursor: pointer;
+  `;
+  const Input = styled.input`
     flex: 1;
     padding: 10px;
     border: none;
@@ -82,22 +76,36 @@ const Input = styled.input`
       color: #ccc;
     }
   `;
-const Styled_Input= styled.input`
-display: none;
-`;
-const Styled_proButton = styled.div`
-display: flex;
-align-items: center;
-`;
+  const Styled_Input = styled.input`
+    display: none;
+  `;
+  const Styled_UploadButton = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 8px;
+  `;
+
+  const Styled_CloseBtn = styled.button`
+    position: relative;
+    margin-top: 0%;
+    font-size: 20px;
+    top: 0;
+    margin-left: 80%;
+  `;
   return (
     <Container>
+      <Styled_CloseBtn onClick={() => navigate("/")}>
+        <IoIosClose />
+      </Styled_CloseBtn>
       <FormContainer>
         <FormTitle>Edit Profile</FormTitle>
         <FormGroup>
           <IconWrapper>
             <FaUser />
           </IconWrapper>
-          <Input  placeholder="Username" />
+          <Input placeholder="Username" />
         </FormGroup>
         <FormGroup>
           <IconWrapper>
@@ -117,19 +125,20 @@ align-items: center;
           </IconWrapper>
           <Input type="password" placeholder="New Password" />
         </FormGroup>
-        
-        
+
         <Styled_Input type="file" ref={fileInput} />
-        <Styled_proButton>
-        <p style={{color:"white"}}>Change photo</p>
-        <Styled_Img src="https://avatar.iran.liara.run/public/boy?username=Ash"
-        onClick={handleClick}
-        />
-        
-        </Styled_proButton>
-        <Button>Save Changes</Button>
+        <Styled_UploadButton>
+          <p style={{ color: "white" }}>Change photo</p>
+          <Styled_Img
+            src="https://avatar.iran.liara.run/public/boy?username=Ash"
+            onClick={handleClick}
+          />
+        </Styled_UploadButton>
+        <Button size="vsmall" variation="primary">
+          Save Changes
+        </Button>
       </FormContainer>
     </Container>
   );
-};
+}
 export default EditProfile;

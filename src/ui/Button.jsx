@@ -1,6 +1,12 @@
 import styled, { css } from "styled-components";
 
 const sizes = {
+  vsmall: css`
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-weight: 400;
+    text-align: center;
+  `,
   small: css`
     font-size: 1.2rem;
     padding: 0.4rem 0.8rem;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const Styled_AppLayout = styled.div`
   display: flex;
@@ -31,10 +32,11 @@ const Styled_Wrapper = styled.div`
 
 function AppLayout() {
   const [isHidden, setIsHidden] = useState(true);
+  const { logged } = useAuth();
 
   return (
     <Styled_AppLayout>
-      <Sidebar isHidden={isHidden} setIsHidden={setIsHidden} />
+      {logged && <Sidebar isHidden={isHidden} setIsHidden={setIsHidden} />}{" "}
       <Styled_Wrapper>
         <Header isHidden={isHidden} setIsHidden={setIsHidden} />
         <Styled_Main>

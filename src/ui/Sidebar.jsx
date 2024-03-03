@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
+import styled from "styled-components";
 import {
+  FaEdit,
   FaFlag,
   FaGlobe,
   FaHome,
@@ -7,27 +9,26 @@ import {
   FaShare,
 } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
-import styled from "styled-components";
+import { useAuth } from "../context/AuthContext";
 
 const Styled_NavLink = styled(NavLink)`
   display: flex;
   align-items: center;
-  font-family: monospace;
+  font-family: sans-serif;
   border-radius: 5px;
-  margin: 8px 0;
+  margin: 16px 4px;
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   text-decoration: none;
-  text-align: center;
-
+  width: 90%;
   span {
+    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 30px;
     height: 30px;
   }
-
   &:hover {
     background-color: #4f46e5;
     span {
@@ -51,6 +52,7 @@ const Styled_ToggleBtn = styled.button`
 `;
 
 const Styled_Sidebar = styled.div`
+  border-bottom-right-radius: 10px;
   width: 12%;
   position: absolute;
   top: 8%;
@@ -60,7 +62,10 @@ const Styled_Sidebar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  ${props => props.isHidden ? "display:none;transition: ease-out;transition-duration: 200ms;" : ""}
+  ${(props) =>
+    props.isHidden
+      ? "display:none;transition: ease-out;transition-duration: 200ms;"
+      : ""}
 `;
 
 const Styled_Profile = styled.div`
@@ -74,18 +79,25 @@ const Styled_Button = styled.button`
   width: 100px;
   background-color: #4f46e5;
   border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
   margin-top: 10px;
-  color:#ffffff;
+  color: white;
+`;
+
+const Styled_EditIcon = styled.div`
+  padding-left: 3px;
 `;
 
 const Styled_Img = styled.img`
   width: 30px;
 `;
-const Styled_Info =styled.div`
+const Styled_Info = styled.div`
 font-size:12px;
 display-flex;
 `;
 function Sidebar({ isHidden, setIsHidden }) {
+  const { user } = useAuth();
   return (
     <div>
       <Styled_Sidebar isHidden={isHidden}>
@@ -93,12 +105,17 @@ function Sidebar({ isHidden, setIsHidden }) {
           <Styled_Profile>
             <Styled_Img src="https://avatar.iran.liara.run/public/boy?username=Ash" />
             <Styled_Info>
-            <p>User name</p>
-            <p>Email</p>
+              <p>{user}</p>
+              <p>Email</p>
             </Styled_Info>
-            
+
             <Link to="/editprofile">
-              <Styled_Button>Edit profile</Styled_Button>
+              <Styled_Button>
+                <Styled_EditIcon>
+                  <FaEdit />
+                </Styled_EditIcon>
+                Edit profile
+              </Styled_Button>
             </Link>
           </Styled_Profile>
         </Styled_ToggleBtn>

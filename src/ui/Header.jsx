@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import { NavLink } from "react-router-dom";
+import Button from "../ui/Button";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IoIosLogOut, IoIosMenu, IoIosSearch } from "react-icons/io";
-import styled from "styled-components";
 import { useAuth } from "../context/AuthContext";
 import { FaBell } from "react-icons/fa";
+import styled from "styled-components";
 
 const Styled_Header = styled.div`
   width: 100%;
@@ -97,16 +98,24 @@ const Styled_LogoutBtn = styled.button`
   }
 `;
 
+const Styled_Auth = styled.span`
+  display: flex;
+  position: absolute;
+  right: 100px;
+  top: 35%;
+  gap: 15px;
+`;
+
 function Header({ isHidden, setIsHidden }) {
   const { logged, logout } = useAuth();
+  const navigate = useNavigate();
 
   const Styled_MenuBtn = styled.img`
-  
-  width:30px;  
-  position: fixed;
+    width: 30px;
+    position: fixed;
     // top: 15px;
     left: 30px;
-    position:fixed;
+    position: fixed;
     ${isHidden && logged ? "" : "display:none;top:0;"}
     &:hover {
       color: white;
@@ -116,13 +125,14 @@ function Header({ isHidden, setIsHidden }) {
   return (
     <Styled_Header>
       <Styled_Container>
-       <Styled_MenuBtn onClick={() => setIsHidden(!isHidden)} 
-        src ="https://avatar.iran.liara.run/public/boy?username=Ash"/>
-          <IoIosMenu />
+        <Styled_MenuBtn
+          onClick={() => setIsHidden(!isHidden)}
+          src="https://avatar.iran.liara.run/public/boy?username=Ash"
+        />
+        <IoIosMenu />
         <Styled_SearchBtn>
           <IoIosSearch />
         </Styled_SearchBtn>
-
         <form>
           <Styled_SearchFiled
             type="text"
@@ -143,6 +153,24 @@ function Header({ isHidden, setIsHidden }) {
           <Styled_LogoutBtn onClick={logout}>
             <IoIosLogOut />
           </Styled_LogoutBtn>
+        )}
+        {!logged && (
+          <Styled_Auth>
+            <Button
+              variation="danger"
+              size="vsmall"
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up
+            </Button>
+            <Button
+              variation="secondary"
+              size="vsmall"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </Button>
+          </Styled_Auth>
         )}
       </Styled_Nav>
     </Styled_Header>

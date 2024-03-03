@@ -2,9 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import styled from "styled-components";
-import GoogleSignup from "../ui/GoogleSignup";
 import { useAuth } from "../context/AuthContext";
 import { FaWindowClose } from "react-icons/fa";
+import GoogleAuth from "../ui/GoogleAuth";
 
 const Styled_Container = styled.div`
   background-color: #ccc;
@@ -82,7 +82,7 @@ function Signup() {
         <Button variation="primary" size="small" type="submit">
           Sign up
         </Button>
-        <GoogleSignup />
+        <GoogleAuth />
       </form>
     </Styled_Container>
   );

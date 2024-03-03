@@ -47,6 +47,8 @@ function AuthProvider({ children }) {
       navigate("/");
       setUser(username);
       toast.success("Successfully logged in");
+    } else {
+      toast.error("Invalid Credentials!");
     }
   }
 
@@ -76,18 +78,21 @@ function AuthProvider({ children }) {
       toast.success("User saved Successfully!");
       navigate("/login");
       setLogged(true);
+    } else {
+      toast.error("Registration Failed!");
     }
   }
   return (
     <AuthContext.Provider
       value={{
         name: "Fekadu",
+        setUser,
+        setLogged,
         logUser,
         registerUser,
         logged,
         logout,
         user,
-        setUser,
       }}
     >
       {children}

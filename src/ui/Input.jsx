@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import styled from "styled-components";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -31,6 +32,7 @@ const StyledInput = styled.input`
 `;
 
 function Input({ name, id, label, type = "text" }) {
+  const { register } = useForm();
   const [isFocused, setIsFocused] = useState(false);
   return (
     <>
@@ -44,6 +46,7 @@ function Input({ name, id, label, type = "text" }) {
           id={id}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(true)}
+          {...register(`${name}`)}
         />
       </InputWrapper>
     </>
