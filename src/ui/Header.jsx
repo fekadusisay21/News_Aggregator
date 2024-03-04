@@ -113,7 +113,7 @@ function Header({ isHidden, setIsHidden }) {
   const Styled_MenuBtn = styled.img`
     width: 30px;
     position: fixed;
-    // top: 15px;
+    top: 3%;
     left: 30px;
     position: fixed;
     ${isHidden && logged ? "" : "display:none;top:0;"}

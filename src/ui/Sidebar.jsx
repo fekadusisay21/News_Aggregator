@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import profile from "../../public/assets/images/profile.png";
 
 const Styled_NavLink = styled(NavLink)`
   display: flex;
@@ -94,6 +95,7 @@ const Styled_EditIcon = styled.div`
 
 const Styled_Img = styled.img`
   width: 30px;
+  cursor: pointer;
 `;
 const Styled_Info = styled.div`
 font-size:12px;
@@ -106,7 +108,7 @@ function Sidebar({ isHidden, setIsHidden }) {
       <Styled_Sidebar isHidden={isHidden}>
         <Styled_ToggleBtn onClick={() => setIsHidden(!isHidden)}>
           <Styled_Profile>
-            <Styled_Img src="https://avatar.iran.liara.run/public/boy?username=Ash" />
+            <Styled_Img src={profile} />
             <Styled_Info>
               <p>{user}</p>
               <p>Email</p>
