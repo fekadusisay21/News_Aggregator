@@ -4,6 +4,7 @@ import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { useRef } from "react";
 import { IoIosClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import profile from "../../public/assets/images/profile.png";
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -129,10 +130,7 @@ function EditProfile() {
         <Styled_Input type="file" ref={fileInput} />
         <Styled_UploadButton>
           <p style={{ color: "white" }}>Change photo</p>
-          <Styled_Img
-            src="https://avatar.iran.liara.run/public/boy?username=Ash"
-            onClick={handleClick}
-          />
+          <Styled_Img src={profile} onClick={handleClick} />
         </Styled_UploadButton>
         <Button size="vsmall" variation="primary">
           Save Changes

@@ -29,6 +29,9 @@ const Styled_NavLink = styled(NavLink)`
     width: 30px;
     height: 30px;
   }
+  &.active {
+    background-color: #4f46e5;
+  }
   &:hover {
     background-color: #4f46e5;
     span {
@@ -120,31 +123,31 @@ function Sidebar({ isHidden, setIsHidden }) {
           </Styled_Profile>
         </Styled_ToggleBtn>
 
-        <Styled_NavLink to="/">
+        <Styled_NavLink to="/" activeClassName="active">
           <span>
             <FaHome />
           </span>
           Home
         </Styled_NavLink>
-        <Styled_NavLink to="/bookmark">
+        <Styled_NavLink to="/dashboard" activeClassName="active">
           <span>
             <FaFlag />
           </span>
           Bookmark
         </Styled_NavLink>
-        <Styled_NavLink to="/news">
+        <Styled_NavLink to="/news" activeClassName="active">
           <span>
             <FaGlobe />
           </span>
           News
         </Styled_NavLink>
-        <Styled_NavLink to="/share">
+        <Styled_NavLink to="/share" activeClassName="active">
           <span>
             <FaShare />
           </span>
           Share
         </Styled_NavLink>
-        <Styled_NavLink to="/key">
+        <Styled_NavLink to="/key" activeClassName="active">
           <span>
             <FaKey />
           </span>
