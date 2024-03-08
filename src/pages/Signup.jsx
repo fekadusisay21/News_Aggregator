@@ -1,13 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
-import Input from "../ui/Input";
 import styled from "styled-components";
+import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+// import GoogleAuth from "../ui/GoogleAuth";
+import { Styled_Input, Styled_Label, InputWrapper } from "../ui/Input";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { generateNumber } from "../utils/helpers";
 import { useAuth } from "../context/AuthContext";
-import { FaWindowClose } from "react-icons/fa";
-import GoogleAuth from "../ui/GoogleAuth";
+import { useRef } from "react";
 
 const Styled_Container = styled.div`
-  background-color: #ccc;
+  background-color: #121621;
   padding: 80px 100px;
   padding-right: 110px;
   text-align: center;
@@ -17,7 +23,7 @@ const Styled_Container = styled.div`
 `;
 
 const Styled_Title = styled.h1`
-  color: #3c009d;
+  color: white;
   text-align: center;
   margin: 8px auto 8px;
 `;
@@ -31,60 +37,189 @@ const Styled_Hr = styled.h1`
 const Styled_Span = styled.span`
   display: block;
   padding-bottom: 20px;
+  color: white;
+  a {
+    color: #ccc;
+    &:hover {
+      color: white;
+    }
+  }
 `;
 
 const Styled_CloseBtn = styled.button`
   position: relative;
-  color: black;
+  color: red;
   margin-left: 100%;
   margin-top: 0;
 
-  font-size: 20px;
-  background-color: #ccc;
+  font-size: 32px;
+  background-color: #121621;
   border: none;
   top: 0;
 `;
+
 function Signup() {
-  const { registerUser } = useAuth();
+  const [usernameValue, setUsernameValue] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+  const form = useRef();
+  const formbtn = useRef();
+  const { setUserData, setConfirmationCode, confirmationCode } = useAuth();
+  useEffect(() => {
+    setConfirmationCode(generateNumber());
+  }, [setConfirmationCode]);
+  const { register, handleSubmit } = useForm();
+  const [focusedField, setFocusedField] = useState("");
+  const handleFocus = (fieldName) => {
+    setFocusedField(fieldName);
+  };
   const navigate = useNavigate();
-  function handleSubmit(e) {
+
+  const sendEmail = (e) => {
     e.preventDefault();
-    const userData = {};
-    userData.username = e.target[0].value;
-    userData.firstname = e.target[1].value;
-    userData.lastname = e.target[2].value;
-    userData.email = e.target[3].value;
-    userData.password = e.target[4].value;
-    registerUser(userData);
-  }
+    emailjs
+      .sendForm("service_qzwee87", "template_dmbtmjs", form.current, {
+        publicKey: "fJLtJwq9pj046YL8H",
+      })
+      .then(
+        () => {
+          toast.success("Email sent");
+        },
+        () => {
+          toast.error("Email sending is failed");
+          navigate("/signup");
+        }
+      );
+  };
+
+  const onSubmit = (data) => {
+    formbtn.current.click();
+    setUserData(data);
+    navigate("/verify");
+  };
+
   return (
-    <Styled_Container>
-      <Styled_CloseBtn onClick={() => navigate("/")}>
-        <FaWindowClose />
-      </Styled_CloseBtn>
-      <Styled_Title>Sign Up</Styled_Title>
-      <Styled_Hr />
-      <form action="" method="POST" onSubmit={handleSubmit}>
-        <Input type="text" label="username" id="username" name="username" />
-        <Input type="text" label="First Name" id="fname" name="firstname" />
-        <Input type="text" label="Last Name" id="lname" name="lastname" />
-        <Input type="text" label="Email" id="email" name="email" />
-        <Input type="password" label="Password" id="password" name="password" />
-        <Input
-          type="password"
-          label="Confirm Password"
-          id="conf_password"
-          name="conf_password"
-        />
-        <Styled_Span>
-          Already a user? <Link to="/login">login</Link>
-        </Styled_Span>
-        <Button variation="primary" size="small" type="submit">
-          Sign up
-        </Button>
-        <GoogleAuth />
+    <>
+      <Styled_Container>
+        <Styled_CloseBtn onClick={() => navigate("/")}>
+          <IoIosCloseCircleOutline />
+        </Styled_CloseBtn>
+        <Styled_Title>Sign Up</Styled_Title>
+        <Styled_Hr />
+        <form action="" method="POST" onSubmit={handleSubmit(onSubmit)}>
+          <InputWrapper>
+            <Styled_Label
+              active={focusedField === "firstname"}
+              htmlFor="firstname"
+            >
+              First Name
+            </Styled_Label>
+            <Styled_Input
+              type="text"
+              name="firstname"
+              onInput={(e) => setUsernameValue(e.target.value)}
+              id="firstname"
+              onFocus={() => handleFocus("firstname")}
+              onBlur={() => handleFocus("firstname")}
+              {...register("firstname")}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Styled_Label
+              active={focusedField === "lastname"}
+              htmlFor="lastname"
+            >
+              Last Name
+            </Styled_Label>
+            <Styled_Input
+              type="text"
+              name="lastname"
+              id="lastname"
+              onFocus={() => handleFocus("lastname")}
+              onBlur={() => handleFocus("")}
+              {...register("lastname")}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Styled_Label
+              active={focusedField === "username"}
+              htmlFor="username"
+            >
+              Username
+            </Styled_Label>
+            <Styled_Input
+              type="text"
+              name="username"
+              id="username"
+              onFocus={() => handleFocus("username")}
+              onBlur={() => handleFocus("")}
+              {...register("username")}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Styled_Label active={focusedField === "email"} htmlFor="email">
+              Email
+            </Styled_Label>
+            <Styled_Input
+              type="email"
+              onInput={(e) => setEmailValue(e.target.value)}
+              name="email"
+              id="email"
+              onFocus={() => handleFocus("email")}
+              onBlur={() => handleFocus("")}
+              {...register("email")}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Styled_Label
+              active={focusedField === "password"}
+              htmlFor="password"
+            >
+              Password
+            </Styled_Label>
+            <Styled_Input
+              type="password"
+              name="password"
+              id="password"
+              onFocus={() => handleFocus("password")}
+              onBlur={() => handleFocus("")}
+              {...register("password")}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <Styled_Label
+              active={focusedField === "confirmpassword"}
+              htmlFor="confirmpassword"
+            >
+              Confirm Password
+            </Styled_Label>
+            <Styled_Input
+              type="password"
+              name="confirmpassword"
+              id="confirmpassword"
+              onFocus={() => handleFocus("confirmpassword")}
+              onBlur={() => handleFocus("")}
+              {...register("confirmpassword")}
+            />
+          </InputWrapper>
+          <Styled_Span>
+            Already a user? <Link to="/login">login</Link>
+          </Styled_Span>
+          <Button variation="primary" size="small" type="submit">
+            Sign up
+          </Button>
+          {/* <GoogleAuth /> */}
+        </form>
+      </Styled_Container>
+      <form ref={form} onSubmit={sendEmail} hidden>
+        <label>Name</label>
+        <input type="text" name="user_name" value={usernameValue} />
+        <label>Email</label>
+        <input type="email" name="user_email" value={emailValue} />
+        <label>Message</label>
+        <input name="message" value={confirmationCode} />
+        <input type="submit" value="Send" ref={formbtn} />
       </form>
-    </Styled_Container>
+    </>
   );
 }
 

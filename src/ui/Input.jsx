@@ -1,7 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -15,42 +14,22 @@ const Styled_Label = styled.label`
   font-size: ${(props) => (props.active ? "14px" : "16px")};
   transition: top 0.3s, font-size 0.3s;
   pointer-events: none;
-  color: ${(props) => (props.active ? "#3c009d" : "#777")};
+  color: ${(props) => (props.active ? "white" : "#777")};
 `;
 
-const StyledInput = styled.input`
+const Styled_Input = styled.input`
   display: block;
-  background-color: #ccc;
+  background-color: #121621;
   width: 100%;
   padding: 8px;
   border: none;
-  border-bottom: 2px solid black;
+  margin: 8px;
+  border-bottom: 2px solid white;
+  color: ${(props) => (props.active ? "white" : "white")};
   &:focus {
     outline: none;
     border-bottom-color: #3c009d;
   }
 `;
 
-function Input({ name, id, label, type = "text" }) {
-  const { register } = useForm();
-  const [isFocused, setIsFocused] = useState(false);
-  return (
-    <>
-      <InputWrapper>
-        <Styled_Label active={isFocused} htmlFor="username">
-          {label}
-        </Styled_Label>
-        <StyledInput
-          type={type}
-          name={name}
-          id={id}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(true)}
-          {...register(`${name}`)}
-        />
-      </InputWrapper>
-    </>
-  );
-}
-
-export default Input;
+export { Styled_Input, InputWrapper, Styled_Label };

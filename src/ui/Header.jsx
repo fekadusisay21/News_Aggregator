@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import Button from "../ui/Button";
+import styled from "styled-components";
+import profile from "../../public/assets/images/profile.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoIosLogOut, IoIosMenu, IoIosSearch } from "react-icons/io";
 import { useAuth } from "../context/AuthContext";
-import { FaBell } from "react-icons/fa";
-import styled from "styled-components";
+import { FaBell, FaMoon, FaSun } from "react-icons/fa";
+import { useDark } from "../context/DarkContext";
 
 const Styled_Header = styled.div`
   width: 100%;
@@ -29,6 +31,9 @@ const Styled_SearchFiled = styled.input`
   border: none;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 8px;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const Styled_SearchBtn = styled.button`
@@ -106,28 +111,38 @@ const Styled_Auth = styled.span`
   gap: 15px;
 `;
 
+const Styled_ThemeBtn = styled.button`
+  color: white;
+  border: none;
+  background-color: #121621;
+`;
+
+const Styled_MenuBtn = styled.img`
+  width: 30px;
+  position: fixed;
+  top: 3%;
+  left: 30px;
+  position: fixed;
+  ${(props) => (props.isHidden && props.logged ? "" : "display:none;top:0;")}
+  &:hover {
+    color: white;
+    cursor: pointer;
+  }
+`;
+
 function Header({ isHidden, setIsHidden }) {
+  const { isDark } = useDark();
   const { logged, logout } = useAuth();
   const navigate = useNavigate();
 
-  const Styled_MenuBtn = styled.img`
-    width: 30px;
-    position: fixed;
-    top: 3%;
-    left: 30px;
-    position: fixed;
-    ${isHidden && logged ? "" : "display:none;top:0;"}
-    &:hover {
-      color: white;
-      cursor: pointer;
-    }
-  `;
   return (
     <Styled_Header>
       <Styled_Container>
         <Styled_MenuBtn
           onClick={() => setIsHidden(!isHidden)}
-          src="https://avatar.iran.liara.run/public/boy?username=Ash"
+          src={profile}
+          isHidden={isHidden}
+          logged={logged}
         />
         <IoIosMenu />
         <Styled_SearchBtn>
@@ -154,6 +169,7 @@ function Header({ isHidden, setIsHidden }) {
             <IoIosLogOut />
           </Styled_LogoutBtn>
         )}
+        <Styled_ThemeBtn>{isDark ? <FaSun /> : <FaMoon />}</Styled_ThemeBtn>
         {!logged && (
           <Styled_Auth>
             <Button

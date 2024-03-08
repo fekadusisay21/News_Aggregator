@@ -4,6 +4,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import GlobalStyles from "../styles/GlobalStyles";
 
 const Styled_AppLayout = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ function AppLayout() {
 
   return (
     <Styled_AppLayout>
+      <GlobalStyles />
       {logged && <Sidebar isHidden={isHidden} setIsHidden={setIsHidden} />}{" "}
       <Styled_Wrapper>
         <Header isHidden={isHidden} setIsHidden={setIsHidden} />

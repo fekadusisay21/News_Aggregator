@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { useRef } from "react";
-import { IoIosClose } from "react-icons/io";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import profile from "../../public/assets/images/profile.png";
 
@@ -90,15 +90,18 @@ function EditProfile() {
 
   const Styled_CloseBtn = styled.button`
     position: relative;
+    border: none;
     margin-top: 0%;
-    font-size: 20px;
+    font-size: 32px;
+    color: red;
+    background-color: #121621;
     top: 0;
     margin-left: 80%;
   `;
   return (
     <Container>
       <Styled_CloseBtn onClick={() => navigate("/")}>
-        <IoIosClose />
+        <IoIosCloseCircleOutline />
       </Styled_CloseBtn>
       <FormContainer>
         <FormTitle>Edit Profile</FormTitle>

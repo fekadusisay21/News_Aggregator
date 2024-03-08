@@ -5,9 +5,20 @@ import toast, { Toaster } from "react-hot-toast";
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
+  const [userData, setUserData] = useState({
+    username: "",
+    password: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    topics_selected: "",
+    profile_pic: "",
+  });
+  const [confirmationCode, setConfirmationCode] = useState();
+
   const navigate = useNavigate();
   const [logged, setLogged] = useState(
-    localStorage.getItem("accessToken") ? true : true
+    localStorage.getItem("accessToken") ? true : false
   );
   const [user, setUser] = useState(
     localStorage.getItem("user") ? localStorage.getItem("user") : ""
@@ -75,8 +86,8 @@ function AuthProvider({ children }) {
     });
     if (res.status === 201) {
       toast.success("User saved Successfully!");
-      navigate("/login");
       setLogged(true);
+      navigate("/login");
     } else {
       toast.error("Registration Failed!");
     }
@@ -85,6 +96,8 @@ function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         name: "Fekadu",
+        userData,
+        setUserData,
         setUser,
         setLogged,
         logUser,
@@ -92,6 +105,8 @@ function AuthProvider({ children }) {
         logged,
         logout,
         user,
+        confirmationCode,
+        setConfirmationCode,
       }}
     >
       {children}

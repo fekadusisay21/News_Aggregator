@@ -102,7 +102,7 @@ font-size:12px;
 display-flex;
 `;
 function Sidebar({ isHidden, setIsHidden }) {
-  const { user } = useAuth();
+  const { user,userData } = useAuth();
   return (
     <div>
       <Styled_Sidebar isHidden={isHidden}>
@@ -111,7 +111,7 @@ function Sidebar({ isHidden, setIsHidden }) {
             <Styled_Img src={profile} />
             <Styled_Info>
               <p>{user}</p>
-              <p>Email</p>
+              <p>{userData.email}</p>
             </Styled_Info>
 
             <Link to="/editprofile">

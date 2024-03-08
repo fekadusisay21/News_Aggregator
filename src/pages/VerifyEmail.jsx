@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-// import Input from "../ui/Input";
 import Button from "../ui/Button";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Styled_Input, Styled_Label, InputWrapper } from "../ui/Input";
+import { Styled_Label, InputWrapper } from "../ui/Input";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 const Styled_Container = styled.div`
   background-color: #121621;
@@ -31,17 +31,6 @@ const Styled_Hr = styled.h1`
   border-radius: 9px;
   margin: 0 auto 20px;
 `;
-const Styled_Span = styled.span`
-  display: block;
-  padding-bottom: 40px;
-  color: white;
-  a {
-    color: #ccc;
-    &:hover {
-      color: white;
-    }
-  }
-`;
 
 const Styled_CloseBtn = styled.button`
   position: relative;
@@ -54,55 +43,53 @@ const Styled_CloseBtn = styled.button`
   top: 0;
 `;
 
+const Styled_Input = styled.input`
+  display: block;
+  background-color: #121621;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-bottom: solid 2px white;
+  margin: 8px;
+  color: ${(props) => (props.active ? "white" : "white")};
+  &:focus {
+    outline: none;
+    border: solid 2px #3c009d;
+  }
+`;
+
 function Login() {
-  const { logUser } = useAuth();
-  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const { confirmationCode, userData, registerUser } = useAuth();
+  const [isVerifyActive, setIsVerifyActive] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    logUser(data);
+    if (confirmationCode === Number(data.verifyemail)) registerUser(userData);
+    else toast.error("Incorrect Code");
   };
   return (
     <Styled_Container>
       <Styled_CloseBtn onClick={() => navigate("/")}>
         <IoIosCloseCircleOutline />
       </Styled_CloseBtn>
-      <Styled_Title>Login</Styled_Title>
+      <Styled_Title>Verify Email</Styled_Title>
       <Styled_Hr />
       <form action="" method="POST" onSubmit={handleSubmit(onSubmit)}>
         <InputWrapper>
-          <Styled_Label active={isUsernameFocused} htmlFor="username">
-            Username
+          <Styled_Label active={isVerifyActive} htmlFor="password">
+            Enter the code here
           </Styled_Label>
           <Styled_Input
             type="text"
-            name="username"
-            id="username"
-            onFocus={() => setIsUsernameFocused(true)}
-            onBlur={() => setIsUsernameFocused(false)}
-            {...register("username")}
+            name="verifyemail"
+            id="verifyemail"
+            onFocus={() => setIsVerifyActive(true)}
+            onBlur={() => setIsVerifyActive(false)}
+            {...register("verifyemail")}
           />
         </InputWrapper>
-
-        <InputWrapper>
-          <Styled_Label active={isPasswordFocused} htmlFor="password">
-            Password
-          </Styled_Label>
-          <Styled_Input
-            type="password"
-            name="password"
-            id="password"
-            onFocus={() => setIsPasswordFocused(true)}
-            onBlur={() => setIsPasswordFocused(false)}
-            {...register("password")}
-          />
-        </InputWrapper>
-        <Styled_Span>
-          Are you a new user? <Link to="/signup">signup</Link>
-        </Styled_Span>
         <Button variation="primary" size="small" type="submit">
-          Login
+          Verify
         </Button>
       </form>
     </Styled_Container>
