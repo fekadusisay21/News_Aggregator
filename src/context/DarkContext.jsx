@@ -4,23 +4,19 @@ import { createContext, useContext, useState } from "react";
 const DarkContext = createContext();
 
 function DarkProvider({ children }) {
-  const { isDark, setIsDark } = useState(true);
+  const [isDark, setIsDark] = useState(true);
+
   return (
-    <DarkContext.Provider
-      value={{
-        isDark,
-        setIsDark,
-      }}
-    >
+    <DarkContext.Provider value={{ isDark, setIsDark }}>
       {children}
     </DarkContext.Provider>
   );
 }
-
 function useDark() {
   const context = useContext(DarkContext);
-  if (context === undefined)
-    throw new Error("DarkContext was used outside of the DarkProvider");
+  if (context === undefined) {
+    throw new Error("useDark must be used within a DarkProvider");
+  }
   return context;
 }
 
