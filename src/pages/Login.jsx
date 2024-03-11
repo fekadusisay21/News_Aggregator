@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Styled_Input, Styled_Label, InputWrapper } from "../ui/Input";
 import { useAuth } from "../context/AuthContext";
+import GoogleLogin from "../ui/GoogleLogin";
 
 const Styled_Container = styled.div`
   background-color: #121621;
@@ -55,7 +56,7 @@ const Styled_CloseBtn = styled.button`
 `;
 
 function Login() {
-  const { logUser } = useAuth();
+  const { logUser, logged } = useAuth();
   const [isUsernameFocused, setIsUsernameFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ function Login() {
   const onSubmit = (data) => {
     logUser(data);
   };
+  if (logged) return;
   return (
     <Styled_Container>
       <Styled_CloseBtn onClick={() => navigate("/")}>
@@ -105,6 +107,7 @@ function Login() {
           Login
         </Button>
       </form>
+      <GoogleLogin />
     </Styled_Container>
   );
 }

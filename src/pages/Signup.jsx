@@ -4,9 +4,9 @@ import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-// import GoogleAuth from "../ui/GoogleAuth";
+import GoogleAuth from "../ui/GoogleAuth";
 import { Styled_Input, Styled_Label, InputWrapper } from "../ui/Input";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useForm } from "react-hook-form";
 import { generateNumber } from "../utils/helpers";
 import { useAuth } from "../context/AuthContext";
@@ -58,27 +58,36 @@ const Styled_CloseBtn = styled.button`
   top: 0;
 `;
 
+function reducer(state, action) {
+  if (action.type === "toggle_fname") return { ...state, fname: true };
+  if (action.type === "toggle_lname") return { ...state, lname: true };
+  if (action.type === "toggle_uname") return { ...state, uname: true };
+  if (action.type === "toggle_email") return { ...state, email: true };
+  if (action.type === "toggle_password") return { ...state, password: true };
+  if (action.type === "toggle_confpassword")
+    return { ...state, confpassword: true };
+}
+
 function Signup() {
+  const initailState = {};
+  const [state, dispatch] = useReducer(reducer, initailState);
   const [usernameValue, setUsernameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const form = useRef();
   const formbtn = useRef();
-  const { setUserData, setConfirmationCode, confirmationCode } = useAuth();
+  const { setUserData, setConfirmationCode, confirmationCode, logged } =
+    useAuth();
   useEffect(() => {
     setConfirmationCode(generateNumber());
-  }, [setConfirmationCode]);
+  }, []);
   const { register, handleSubmit } = useForm();
-  const [focusedField, setFocusedField] = useState("");
-  const handleFocus = (fieldName) => {
-    setFocusedField(fieldName);
-  };
   const navigate = useNavigate();
 
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
-      .sendForm("service_qzwee87", "template_dmbtmjs", form.current, {
-        publicKey: "fJLtJwq9pj046YL8H",
+      .sendForm("service_3d6cxkw", "template_2sg6hto", form.current, {
+        publicKey: "n7kbqTx01c_VI-8gl",
       })
       .then(
         () => {
@@ -96,7 +105,7 @@ function Signup() {
     setUserData(data);
     navigate("/verify");
   };
-
+  if (logged) return;
   return (
     <>
       <Styled_Container>
@@ -107,10 +116,7 @@ function Signup() {
         <Styled_Hr />
         <form action="" method="POST" onSubmit={handleSubmit(onSubmit)}>
           <InputWrapper>
-            <Styled_Label
-              active={focusedField === "firstname"}
-              htmlFor="firstname"
-            >
+            <Styled_Label active={state.fname} htmlFor="firstname">
               First Name
             </Styled_Label>
             <Styled_Input
@@ -118,45 +124,39 @@ function Signup() {
               name="firstname"
               onInput={(e) => setUsernameValue(e.target.value)}
               id="firstname"
-              onFocus={() => handleFocus("firstname")}
-              onBlur={() => handleFocus("firstname")}
+              onFocus={() => dispatch({ type: "toggle_fname" })}
+              onBlur={() => dispatch({ type: "toggle_fname" })}
               {...register("firstname")}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label
-              active={focusedField === "lastname"}
-              htmlFor="lastname"
-            >
+            <Styled_Label active={state.lname} htmlFor="lastname">
               Last Name
             </Styled_Label>
             <Styled_Input
               type="text"
               name="lastname"
               id="lastname"
-              onFocus={() => handleFocus("lastname")}
-              onBlur={() => handleFocus("")}
+              onFocus={() => dispatch({ type: "toggle_lname" })}
+              onBlur={() => dispatch({ type: "toggle_lname" })}
               {...register("lastname")}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label
-              active={focusedField === "username"}
-              htmlFor="username"
-            >
+            <Styled_Label active={state.uname} htmlFor="username">
               Username
             </Styled_Label>
             <Styled_Input
               type="text"
               name="username"
               id="username"
-              onFocus={() => handleFocus("username")}
-              onBlur={() => handleFocus("")}
+              onFocus={() => dispatch({ type: "toggle_uname" })}
+              onBlur={() => dispatch({ type: "toggle_uname" })}
               {...register("username")}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label active={focusedField === "email"} htmlFor="email">
+            <Styled_Label active={state.email} htmlFor="email">
               Email
             </Styled_Label>
             <Styled_Input
@@ -164,40 +164,34 @@ function Signup() {
               onInput={(e) => setEmailValue(e.target.value)}
               name="email"
               id="email"
-              onFocus={() => handleFocus("email")}
-              onBlur={() => handleFocus("")}
+              onFocus={() => dispatch({ type: "toggle_email" })}
+              onBlur={() => dispatch({ type: "toggle_email" })}
               {...register("email")}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label
-              active={focusedField === "password"}
-              htmlFor="password"
-            >
+            <Styled_Label active={state.password} htmlFor="password">
               Password
             </Styled_Label>
             <Styled_Input
               type="password"
               name="password"
               id="password"
-              onFocus={() => handleFocus("password")}
-              onBlur={() => handleFocus("")}
+              onFocus={() => dispatch({ type: "toggle_password" })}
+              onBlur={() => dispatch({ type: "toggle_password" })}
               {...register("password")}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label
-              active={focusedField === "confirmpassword"}
-              htmlFor="confirmpassword"
-            >
+            <Styled_Label active={state.confpassword} htmlFor="confirmpassword">
               Confirm Password
             </Styled_Label>
             <Styled_Input
               type="password"
               name="confirmpassword"
               id="confirmpassword"
-              onFocus={() => handleFocus("confirmpassword")}
-              onBlur={() => handleFocus("")}
+              onFocus={() => dispatch({ type: "toggle_confpassword" })}
+              onBlur={() => dispatch({ type: "toggle_confpassword" })}
               {...register("confirmpassword")}
             />
           </InputWrapper>
@@ -207,7 +201,7 @@ function Signup() {
           <Button variation="primary" size="small" type="submit">
             Sign up
           </Button>
-          {/* <GoogleAuth /> */}
+          <GoogleAuth />
         </form>
       </Styled_Container>
       <form ref={form} onSubmit={sendEmail} hidden>
