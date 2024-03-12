@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 import { useRef } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import profile from "../../public/assets/images/profile.png";
-
+import { useDark } from "../context/DarkContext";
 function EditProfile() {
   const navigate = useNavigate();
   const fileInput = useRef();
+  const {isDark} = useDark();
   function handleClick() {
     fileInput.current.click();
   }
@@ -19,13 +22,15 @@ function EditProfile() {
     align-items: center;
     justify-content: center;
     height: 60vh;
-    background-color: #121621;
+    background-color: ${isDark ? "#00172b" : "#d2d0d0"};
+    color:${isDark ? "#e0dfdf" : "#000"};
     border-radius: 5px;
     margin-top: 12.5%;
   `;
 
   const FormContainer = styled.div`
-    background-color: #121621;
+    background-color: ${isDark ? "#00172b" : "#d2d0d0"};
+    color:${isDark ? "#e0dfdf" : "#000"};
     padding: 20px 80px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -33,7 +38,6 @@ function EditProfile() {
   `;
 
   const FormTitle = styled.h2`
-    color: #fff;
     margin-bottom: 20px;
     text-align: center;
   `;
@@ -48,13 +52,10 @@ function EditProfile() {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
     background-color: transparent;
     margin-right: 10px;
 
     svg {
-      color: #fff;
       font-size: 16px;
     }
   `;
@@ -71,10 +72,9 @@ function EditProfile() {
     outline: none;
     font-size: 12px;
     background-color: transparent;
-    color: #fff;
 
     ::placeholder {
-      color: #ccc;
+
     }
   `;
   const Styled_Input = styled.input`
@@ -89,13 +89,13 @@ function EditProfile() {
   `;
 
   const Styled_CloseBtn = styled.button`
+    top:50px;
     position: relative;
     border: none;
     margin-top: 0%;
     font-size: 32px;
     color: red;
-    background-color: #121621;
-    top: 0;
+    background-color: ${isDark ? "#00172b" : "#d2d0d0"};
     margin-left: 80%;
   `;
   return (
@@ -107,32 +107,32 @@ function EditProfile() {
         <FormTitle>Edit Profile</FormTitle>
         <FormGroup>
           <IconWrapper>
-            <FaUser />
+            <FaRegUserCircle />
           </IconWrapper>
           <Input placeholder="Username" />
         </FormGroup>
         <FormGroup>
           <IconWrapper>
-            <FaEnvelope />
+            <MdOutlineEmail />
           </IconWrapper>
           <Input type="email" placeholder="Email" />
         </FormGroup>
         <FormGroup>
           <IconWrapper>
-            <FaLock />
+            <RiLockPasswordLine />
           </IconWrapper>
           <Input type="password" placeholder="Old Password" />
         </FormGroup>
         <FormGroup>
           <IconWrapper>
-            <FaLock />
+            <RiLockPasswordLine />
           </IconWrapper>
           <Input type="password" placeholder="New Password" />
         </FormGroup>
 
         <Styled_Input type="file" ref={fileInput} />
         <Styled_UploadButton>
-          <p style={{ color: "white" }}>Change photo</p>
+          <p >Change photo</p>
           <Styled_Img src={profile} onClick={handleClick} />
         </Styled_UploadButton>
         <Button size="vsmall" variation="primary">
