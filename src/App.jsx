@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import PrivateRoute from "./utils/PrivateRoute";
 import EditProfile from "./ui/EditProfile";
 import VerifyEmail from "./pages/VerifyEmail";
+import PageNotFound from "./ui/PageNotFound"
 import { AuthProvider } from "./context/AuthContext";
 import { DarkProvider } from "./context/DarkContext";
 function App() {
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/verify" element={<VerifyEmail />} />
                 <Route path="/editprofile" element={<EditProfile />} />
+                <Route path="*" element={<PageNotFound/>}/>
               </Route>
             </Routes>
           </DarkProvider>

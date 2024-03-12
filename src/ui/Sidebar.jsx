@@ -1,24 +1,25 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import {
-  FaEdit,
-  FaFlag,
-  FaGlobe,
-  FaHome,
-  FaKey,
-  FaShare,
-} from "react-icons/fa";
+import { IoHomeOutline } from "react-icons/io5";
+import { FaRegBookmark } from "react-icons/fa6";
+import { BiNews } from "react-icons/bi";
+import { GoShareAndroid } from "react-icons/go";
+import { IoMdKey } from "react-icons/io";
+import { FaRegEdit } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import profile from "../../public/assets/images/profile.png";
-
-const Styled_NavLink = styled(NavLink)`
+import { useDark } from "../context/DarkContext";
+function Sidebar({ isHidden, setIsHidden }) {
+  const { user,userData } = useAuth();
+  const {isDark} = useDark();
+  const Styled_NavLink = styled(NavLink)`
   display: flex;
   align-items: center;
   font-family: sans-serif;
   border-radius: 5px;
   margin: 16px 4px;
-  color: #fff;
+  color: ${isDark ? "#e0dfdf" : "#000"};
   font-size: 18px;
   text-decoration: none;
   width: 90%;
@@ -45,7 +46,7 @@ const Styled_ToggleBtn = styled.button`
   padding: 10px;
   color: #ccc;
   font-size: 20px;
-  background-color: #011627;
+  background-color: ${isDark ? "#00172b" : "#d2d0d0"};
   border: none;
   margin: 20px auto 0;
 
@@ -61,7 +62,7 @@ const Styled_Sidebar = styled.div`
   position: absolute;
   top: 8%;
   bottom: 0;
-  background-color: #121621;
+  background-color:${isDark ? "#00172b" : "#d2d0d0"};
   padding: 0 2px;
   display: flex;
   flex-direction: column;
@@ -98,11 +99,9 @@ const Styled_Img = styled.img`
   cursor: pointer;
 `;
 const Styled_Info = styled.div`
+display: flex;
 font-size:12px;
-display-flex;
 `;
-function Sidebar({ isHidden, setIsHidden }) {
-  const { user,userData } = useAuth();
   return (
     <div>
       <Styled_Sidebar isHidden={isHidden}>
@@ -117,7 +116,7 @@ function Sidebar({ isHidden, setIsHidden }) {
             <Link to="/editprofile">
               <Styled_Button>
                 <Styled_EditIcon>
-                  <FaEdit />
+                  <FaRegEdit />
                 </Styled_EditIcon>
                 Edit profile
               </Styled_Button>
@@ -127,31 +126,31 @@ function Sidebar({ isHidden, setIsHidden }) {
 
         <Styled_NavLink to="/" activeClassName="active">
           <span>
-            <FaHome />
+            <IoHomeOutline />
           </span>
           Home
         </Styled_NavLink>
         <Styled_NavLink to="/dashboard" activeClassName="active">
           <span>
-            <FaFlag />
+            <FaRegBookmark />
           </span>
           Bookmark
         </Styled_NavLink>
         <Styled_NavLink to="/news" activeClassName="active">
           <span>
-            <FaGlobe />
+            <BiNews />
           </span>
           News
         </Styled_NavLink>
         <Styled_NavLink to="/share" activeClassName="active">
           <span>
-            <FaShare />
+            <GoShareAndroid />
           </span>
           Share
         </Styled_NavLink>
         <Styled_NavLink to="/key" activeClassName="active">
           <span>
-            <FaKey />
+            <IoMdKey />
           </span>
           key
         </Styled_NavLink>
