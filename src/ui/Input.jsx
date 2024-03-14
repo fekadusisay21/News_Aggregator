@@ -14,18 +14,18 @@ const Styled_Label = styled.label`
   font-size: ${(props) => (props.active ? "14px" : "16px")};
   transition: top 0.3s, font-size 0.3s;
   pointer-events: none;
-  color: ${(props) => (props.active ? "white" : "#777")};
+  color: ${(props) => (props.isDark ? "white" : "black")};
 `;
 
 const Styled_Input = styled.input`
   display: block;
-  background-color: #121621;
+  background-color: ${(props) => (props.isDark ? "#00172b" : "#ccc")};
   width: 100%;
   padding: 8px;
   border: none;
   margin: 8px;
   border-bottom: 2px solid white;
-  color: ${(props) => (props.active ? "white" : "white")};
+  color: ${(props) => (props.isDark ? "white" : "black")};
   &:focus {
     outline: none;
     border-bottom-color: #3c009d;

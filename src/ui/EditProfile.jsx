@@ -11,7 +11,7 @@ import { useDark } from "../context/DarkContext";
 function EditProfile() {
   const navigate = useNavigate();
   const fileInput = useRef();
-  const {isDark} = useDark();
+  const { isDark } = useDark();
   function handleClick() {
     fileInput.current.click();
   }
@@ -23,14 +23,14 @@ function EditProfile() {
     justify-content: center;
     height: 60vh;
     background-color: ${isDark ? "#00172b" : "#d2d0d0"};
-    color:${isDark ? "#e0dfdf" : "#000"};
+    color: ${isDark ? "#e0dfdf" : "#000"};
     border-radius: 5px;
     margin-top: 12.5%;
   `;
 
   const FormContainer = styled.div`
     background-color: ${isDark ? "#00172b" : "#d2d0d0"};
-    color:${isDark ? "#e0dfdf" : "#000"};
+    color: ${isDark ? "#e0dfdf" : "#000"};
     padding: 20px 80px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -71,11 +71,8 @@ function EditProfile() {
     border-bottom: 1px solid #ddd;
     outline: none;
     font-size: 12px;
+    color: ${isDark ? "white" : "black"};
     background-color: transparent;
-
-    ::placeholder {
-
-    }
   `;
   const Styled_Input = styled.input`
     display: none;
@@ -89,13 +86,13 @@ function EditProfile() {
   `;
 
   const Styled_CloseBtn = styled.button`
-    top:50px;
+    top: 50px;
     position: relative;
     border: none;
     margin-top: 0%;
     font-size: 32px;
     color: red;
-    background-color: ${isDark ? "#00172b" : "#d2d0d0"};
+    background-color: ${isDark ? "#00172b" : "#ccc"};
     margin-left: 80%;
   `;
   return (
@@ -132,7 +129,7 @@ function EditProfile() {
 
         <Styled_Input type="file" ref={fileInput} />
         <Styled_UploadButton>
-          <p >Change photo</p>
+          <p>Change photo</p>
           <Styled_Img src={profile} onClick={handleClick} />
         </Styled_UploadButton>
         <Button size="vsmall" variation="primary">

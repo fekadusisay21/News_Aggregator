@@ -1,4 +1,3 @@
-import Button from "../ui/Button";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
@@ -11,39 +10,15 @@ import { useForm } from "react-hook-form";
 import { generateNumber } from "../utils/helpers";
 import { useAuth } from "../context/AuthContext";
 import { useRef } from "react";
+import { useDark } from "../context/DarkContext";
+import Button from "../ui/Button";
 
-const Styled_Container = styled.div`
-  background-color: #121621;
-  padding: 80px 100px;
-  padding-right: 110px;
-  text-align: center;
-  align-content: center;
-  border-radius: 10px;
-  margin-top: 12.5%;
-`;
-
-const Styled_Title = styled.h1`
-  color: white;
-  text-align: center;
-  margin: 8px auto 8px;
-`;
 const Styled_Hr = styled.h1`
   width: 61px;
   height: 6px;
   background: #3c009d;
   border-radius: 9px;
   margin: 0 auto 20px;
-`;
-const Styled_Span = styled.span`
-  display: block;
-  padding-bottom: 20px;
-  color: white;
-  a {
-    color: #ccc;
-    &:hover {
-      color: white;
-    }
-  }
 `;
 
 const Styled_CloseBtn = styled.button`
@@ -53,7 +28,7 @@ const Styled_CloseBtn = styled.button`
   margin-top: 0;
 
   font-size: 32px;
-  background-color: #121621;
+  background-color: transparent;
   border: none;
   top: 0;
 `;
@@ -80,6 +55,7 @@ function Signup() {
   useEffect(() => {
     setConfirmationCode(generateNumber());
   }, []);
+  const { isDark } = useDark();
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
@@ -105,7 +81,36 @@ function Signup() {
     setUserData(data);
     navigate("/verify");
   };
+
   if (logged) return;
+
+  const Styled_Container = styled.div`
+    padding: 80px 100px;
+    padding-right: 110px;
+    text-align: center;
+    align-content: center;
+    border-radius: 10px;
+    margin-top: 12.5%;
+    background-color: ${isDark ? "#00172b" : "#ccc"};
+  `;
+
+  const Styled_Span = styled.span`
+    display: block;
+    padding-bottom: 20px;
+    color: ${isDark ? "white" : "black"};
+    a {
+      color: ${isDark ? "white" : "black"};
+      &:hover {
+        color: red;
+      }
+    }
+  `;
+
+  const Styled_Title = styled.h1`
+    color: ${isDark ? "white" : "black"};
+    text-align: center;
+    margin: 8px auto 8px;
+  `;
   return (
     <>
       <Styled_Container>
@@ -116,7 +121,11 @@ function Signup() {
         <Styled_Hr />
         <form action="" method="POST" onSubmit={handleSubmit(onSubmit)}>
           <InputWrapper>
-            <Styled_Label active={state.fname} htmlFor="firstname">
+            <Styled_Label
+              active={state.fname}
+              htmlFor="firstname"
+              isDark={isDark}
+            >
               First Name
             </Styled_Label>
             <Styled_Input
@@ -127,10 +136,15 @@ function Signup() {
               onFocus={() => dispatch({ type: "toggle_fname" })}
               onBlur={() => dispatch({ type: "toggle_fname" })}
               {...register("firstname")}
+              isDark={isDark}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label active={state.lname} htmlFor="lastname">
+            <Styled_Label
+              active={state.lname}
+              htmlFor="lastname"
+              isDark={isDark}
+            >
               Last Name
             </Styled_Label>
             <Styled_Input
@@ -140,10 +154,15 @@ function Signup() {
               onFocus={() => dispatch({ type: "toggle_lname" })}
               onBlur={() => dispatch({ type: "toggle_lname" })}
               {...register("lastname")}
+              isDark={isDark}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label active={state.uname} htmlFor="username">
+            <Styled_Label
+              active={state.uname}
+              htmlFor="username"
+              isDark={isDark}
+            >
               Username
             </Styled_Label>
             <Styled_Input
@@ -153,10 +172,11 @@ function Signup() {
               onFocus={() => dispatch({ type: "toggle_uname" })}
               onBlur={() => dispatch({ type: "toggle_uname" })}
               {...register("username")}
+              isDark={isDark}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label active={state.email} htmlFor="email">
+            <Styled_Label active={state.email} htmlFor="email" isDark={isDark}>
               Email
             </Styled_Label>
             <Styled_Input
@@ -167,10 +187,15 @@ function Signup() {
               onFocus={() => dispatch({ type: "toggle_email" })}
               onBlur={() => dispatch({ type: "toggle_email" })}
               {...register("email")}
+              isDark={isDark}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label active={state.password} htmlFor="password">
+            <Styled_Label
+              active={state.password}
+              htmlFor="password"
+              isDark={isDark}
+            >
               Password
             </Styled_Label>
             <Styled_Input
@@ -180,10 +205,15 @@ function Signup() {
               onFocus={() => dispatch({ type: "toggle_password" })}
               onBlur={() => dispatch({ type: "toggle_password" })}
               {...register("password")}
+              isDark={isDark}
             />
           </InputWrapper>
           <InputWrapper>
-            <Styled_Label active={state.confpassword} htmlFor="confirmpassword">
+            <Styled_Label
+              active={state.confpassword}
+              htmlFor="confirmpassword"
+              isDark={isDark}
+            >
               Confirm Password
             </Styled_Label>
             <Styled_Input
@@ -193,6 +223,7 @@ function Signup() {
               onFocus={() => dispatch({ type: "toggle_confpassword" })}
               onBlur={() => dispatch({ type: "toggle_confpassword" })}
               {...register("confirmpassword")}
+              isDark={isDark}
             />
           </InputWrapper>
           <Styled_Span>
