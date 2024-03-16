@@ -16,11 +16,9 @@ function Sidebar({ isHidden }) {
   const Styled_NavLink = styled(NavLink)`
     display: flex;
     align-items: center;
-    font-family: sans-serif;
     border-radius: 5px;
     margin: 16px 4px;
     color: ${isDark ? "#e0dfdf" : "#000"};
-    font-size: 16px;
     text-decoration: none;
     width: 90%;
     span {
@@ -30,8 +28,6 @@ function Sidebar({ isHidden }) {
       justify-content: center;
       width: 30px;
       height: 30px;
-      font-size: 18px;
-      font-weight: bold;
     }
     &.active {
       background-color: #4f46e5;
@@ -46,6 +42,8 @@ function Sidebar({ isHidden }) {
   `;
 
   const Styled_Sidebar = styled.div`
+  font-weight: 550;
+  font-size: 18px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 12%;
