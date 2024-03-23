@@ -60,6 +60,7 @@ function Sidebar({ isHidden }) {
         ? "display:none;transition: ease-out;transition-duration: 200ms;"
         : ""}
     position: fixed;
+    margin-top: 15px;
   `;
 
   //   const Styled_Profile = styled.div`

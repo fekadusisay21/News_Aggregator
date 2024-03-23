@@ -18,7 +18,7 @@ function AuthProvider({ children }) {
 
   const navigate = useNavigate();
   const [logged, setLogged] = useState(
-    localStorage.getItem("accessToken") ? true : false
+    localStorage.getItem("accessToken") ? true : true
   );
   const [user, setUser] = useState(
     localStorage.getItem("user") ? localStorage.getItem("user") : ""
