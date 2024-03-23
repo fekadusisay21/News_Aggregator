@@ -11,7 +11,8 @@ export default createGlobalStyle`
   font-style: normal;
 }
   body {
-    font-family: "Montserrat" sans-serif;
+    font-family: 'Poppins' sans-serif;
+    margin: 0 2px 2px 2px;
   }
 
 `

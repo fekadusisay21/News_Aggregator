@@ -42,8 +42,8 @@ function Sidebar({ isHidden }) {
   `;
 
   const Styled_Sidebar = styled.div`
-  font-weight: 550;
-  font-size: 18px;
+    font-weight: 550;
+    font-size: 18px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 12%;
@@ -59,6 +59,7 @@ function Sidebar({ isHidden }) {
       props.isHidden
         ? "display:none;transition: ease-out;transition-duration: 200ms;"
         : ""}
+    position: fixed;
   `;
 
   //   const Styled_Profile = styled.div`

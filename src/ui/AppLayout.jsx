@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import styled from "styled-components";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
 import GlobalStyles from "../styles/GlobalStyles";
 
 const Styled_AppLayout = styled.div`

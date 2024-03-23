@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { DarkProvider } from "./context/DarkContext";
+import { AuthProvider } from "./context/AuthContext";
 import AppLayout from "./ui/AppLayout";
 import Home from "./ui/Home";
 import Login from "./pages/Login";
@@ -7,11 +9,10 @@ import Signup from "./pages/Signup";
 import PrivateRoute from "./utils/PrivateRoute";
 import EditProfile from "./ui/EditProfile";
 import VerifyEmail from "./pages/VerifyEmail";
-import PageNotFound from "./ui/PageNotFound"
-import { AuthProvider } from "./context/AuthContext";
-import { DarkProvider } from "./context/DarkContext";
-import "./ui/index.css"
+import PageNotFound from "./ui/PageNotFound";
+import "./ui/index.css";
 import News from "./ui/News";
+
 function App() {
   return (
     <div>
@@ -33,8 +34,8 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/verify" element={<VerifyEmail />} />
                 <Route path="/editprofile" element={<EditProfile />} />
-                <Route path="/news" element={<News/>}/>
-                <Route path="*" element={<PageNotFound/>}/>
+                <Route path="/news" element={<News />} />
+                <Route path="*" element={<PageNotFound />} />
               </Route>
             </Routes>
           </DarkProvider>
@@ -45,4 +46,3 @@ function App() {
 }
 
 export default App;
-
