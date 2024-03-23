@@ -13,7 +13,7 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import LogoutIcon from '@mui/icons-material/Logout';
-// import Avatar from '@mui/material/Avatar';
+import Avatar from '@mui/material/Avatar';
 import profile from "../../public/assets/images/profile.png";
 import { useDark } from "../context/DarkContext";
 import { Button } from '@mui/material';
@@ -48,6 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
@@ -59,12 +60,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 const Styled_Auth = Styled.span`
-width:15%;
+  display: flex;
   position: absolute;
-  right:5%;
-display: flex;
-align-items: center;
-justify-content: center;
+  right: 14%;
+  top: 35%;
   gap: 15px;
 `;
 export default function SearchAppBar({ setIsHidden }) {
@@ -100,8 +99,7 @@ font-size: 16px;
 }
 `;
 const Styled_MenuBtn = Styled.a`
-width:1%;
-    right:60px;
+    left: 30px;
     border: none;
     outline: none;
     cursor: pointer;
@@ -110,6 +108,7 @@ width:1%;
   const Styled_ProfileBtn = Styled.img`
   width: 30px;
   position: fixed;
+  top: 1.5%;
   right: 30px;
   position: fixed;
   ${logged ? "" : "display:none;top:0;"}
@@ -118,17 +117,6 @@ width:1%;
     cursor: pointer;
   }
 `;
-const Styled_Navs = Styled.div`
-display: flex;
-align-items: center;
-justify-content: space-evenly;
-width:45%;
-`;
-const profile_image =  <Styled_ProfileBtn
-src={profile}
-logged={logged}
-onClick={() => navigate("/editprofile")}
-/>
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -144,19 +132,12 @@ onClick={() => navigate("/editprofile")}
             <MenuIcon />
           </IconButton>
           </Styled_MenuBtn>
-{profile_image}
-         {!logged && (
-        <Styled_Auth>
-          <Button variant="outlined" size="small"
-          onClick={() => navigate("/signup")}
-          >
-  Sign Up
-</Button>
-<Button variant="outlined" size="small" onClick={() => navigate("/login")}>Login</Button>
-        </Styled_Auth>
-      )}
-      <Styled_Navs>
-      <Styled_NavLink
+          <Styled_ProfileBtn
+        src={profile}
+        logged={logged}
+        onClick={() => navigate("/editprofile")}
+      />
+          <Styled_NavLink
           >
             Home 
           </Styled_NavLink>
@@ -169,8 +150,6 @@ onClick={() => navigate("/editprofile")}
           >
             Following 
           </Styled_NavLink>
-      </Styled_Navs>
-          
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -191,6 +170,24 @@ onClick={() => navigate("/editprofile")}
         <Styled_ThemeBtn onClick={logout}>
         <LogoutIcon />
           </Styled_ThemeBtn>
+          {!logged && (
+        <Styled_Auth>
+          <Button
+            variation="danger"
+            size="vsmall"
+            onClick={() => navigate("/signup")}
+          >
+            Sign Up
+          </Button>
+          <Button
+            variation="secondary"
+            size="vsmall"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </Button>
+        </Styled_Auth>
+      )}
         </Styled_Toolbar>
       </AppBar>
     </Box>

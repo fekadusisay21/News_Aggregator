@@ -12,6 +12,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { DarkProvider } from "./context/DarkContext";
 import "./ui/index.css"
 import News from "./ui/News";
+// import Note from "./ui/Note";
 function App() {
   return (
     <div>
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/verify" element={<VerifyEmail />} />
                 <Route path="/editprofile" element={<EditProfile />} />
                 <Route path="/news" element={<News/>}/>
+                {/* <Route path="/note" element={<Note/>}/> */}
                 <Route path="*" element={<PageNotFound/>}/>
               </Route>
             </Routes>
