@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Button from "./Button";
+// import Button from "./Button";
+import Button from '@mui/material/Button';
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -16,7 +17,6 @@ function EditProfile() {
     fileInput.current.click();
   }
   const Container = styled.div`
-    font-family: sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,9 +132,7 @@ function EditProfile() {
           <p>Change photo</p>
           <Styled_Img src={profile} onClick={handleClick} />
         </Styled_UploadButton>
-        <Button size="vsmall" variation="primary">
-          Save Changes
-        </Button>
+        <Button variant="contained">Save changes</Button>
       </FormContainer>
     </Container>
   );

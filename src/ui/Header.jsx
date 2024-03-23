@@ -54,6 +54,8 @@ function Header({ setIsHidden }) {
     }
   `;
   const Styled_Header = styled.div`
+  font-size: 20px;
+font-weight: 600;
     width: 100%;
     background-color: ${isDark ? "#171819" : "#f9fafb"};
     color: ${isDark ? "#ccc" : "#000"};
@@ -86,8 +88,6 @@ function Header({ setIsHidden }) {
     left: 30px;
     border: none;
     outline: none;
-    font-size: 24px;
-    font-weight: bold;
     cursor: pointer;
     color: ${isDark ? "white" : "black"};
   `;
@@ -97,7 +97,6 @@ function Header({ setIsHidden }) {
     background-color: transparent;
     color: white;
     border: none;
-    font-size: 20px;
     position: absolute;
     right: 8px;
     top: 60%;
@@ -108,7 +107,7 @@ function Header({ setIsHidden }) {
     color: ${isDark ? "#ccc" : "#000"};
     border: none;
     background-color: transparent;
-    font-size: 16px;
+    font-size: 18px;
     &:hover {
       color: #4f46e5;
     }
@@ -118,7 +117,7 @@ function Header({ setIsHidden }) {
     color: ${isDark ? "#e0dfdf" : "#000"};
     background-color: transparent;
     border: none;
-    font-size: 16px;
+    font-size: 18px;
     &:hover {
       color: #4f46e5;
     }
@@ -134,7 +133,7 @@ function Header({ setIsHidden }) {
   `;
   const Styled_NavLink = styled(NavLink)`
     color: ${isDark ? "#ccc" : "#000"};
-    font-size: 18px;
+    font-size: 20px;
     text-decoration: none;
     padding: 0 10px;
     &:hover {

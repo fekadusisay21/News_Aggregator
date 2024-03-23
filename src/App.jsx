@@ -10,6 +10,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import PageNotFound from "./ui/PageNotFound"
 import { AuthProvider } from "./context/AuthContext";
 import { DarkProvider } from "./context/DarkContext";
+import "./ui/index.css"
 function App() {
   return (
     <div>
