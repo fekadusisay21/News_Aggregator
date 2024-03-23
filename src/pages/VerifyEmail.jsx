@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import Button from "../ui/Button";
+import Button from "@mui/material/Button";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Styled_Label, InputWrapper } from "../ui/Input";
+import { Styled_Label, InputWrapper, Styled_Input } from "../ui/Input";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import { useDark } from "../context/DarkContext";
 
 const Styled_Container = styled.div`
   background-color: #121621;
@@ -22,14 +23,14 @@ const Styled_Container = styled.div`
 const Styled_Title = styled.h1`
   color: white;
   text-align: center;
-  margin: 8px auto 8px;
+  margin: 8px auto;
 `;
 const Styled_Hr = styled.h1`
   width: 61px;
   height: 6px;
   background: #3c009d;
   border-radius: 9px;
-  margin: 0 auto 20px;
+  margin: 0 auto 40px;
 `;
 
 const Styled_CloseBtn = styled.button`
@@ -43,24 +44,10 @@ const Styled_CloseBtn = styled.button`
   top: 0;
 `;
 
-const Styled_Input = styled.input`
-  display: block;
-  background-color: #121621;
-  width: 100%;
-  padding: 8px;
-  border: none;
-  border-bottom: solid 2px white;
-  margin: 8px;
-  color: ${(props) => (props.active ? "white" : "white")};
-  &:focus {
-    outline: none;
-    border: solid 2px #3c009d;
-  }
-`;
-
 function Login() {
+  const { isDark } = useDark();
   const { confirmationCode, userData, registerUser } = useAuth();
-  const [isVerifyActive, setIsVerifyActive] = useState(false);
+  const [isVerifyActive, serVerifyActive] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
@@ -76,19 +63,24 @@ function Login() {
       <Styled_Hr />
       <form action="" method="POST" onSubmit={handleSubmit(onSubmit)}>
         <InputWrapper>
-          <Styled_Label active={isVerifyActive} htmlFor="password">
-            Enter the code here
+          <Styled_Label
+            active={isVerifyActive}
+            htmlFor="verifyemail"
+            isDark={isDark}
+          >
+            Code
           </Styled_Label>
           <Styled_Input
-            type="text"
+            type="verifyemail"
             name="verifyemail"
             id="verifyemail"
-            onFocus={() => setIsVerifyActive(true)}
-            onBlur={() => setIsVerifyActive(false)}
-            {...register("verifyemail")}
+            onFocus={() => serVerifyActive(true)}
+            onBlur={() => serVerifyActive(true)}
+            {...register("verifyemail", { required: true })}
+            isDark={isDark}
           />
         </InputWrapper>
-        <Button variation="primary" size="small" type="submit">
+        <Button variant="contained" type="submit">
           Verify
         </Button>
       </form>

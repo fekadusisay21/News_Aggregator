@@ -28,14 +28,14 @@ const Styled_Buttons = styled.div`
   display: flex;
   position: absolute;
   top: 27%;
-  right: 100px;
+  right: 200px;
   gap: 10px;
   align-items: center;
 `;
 
 function Header({ setIsHidden }) {
   const { isDark, setIsDark } = useDark();
-  const { logged, logout } = useAuth();
+  const { logged, logout, user } = useAuth();
   const navigate = useNavigate();
   const toggleTheme = () => {
     setIsDark((prevTheme) => !prevTheme);
@@ -140,11 +140,23 @@ function Header({ setIsHidden }) {
       color: ${isDark ? "white" : "#4f46e5"};
     }
   `;
+
+  const Styled_Name = styled.span`
+    color: ${isDark ? "red" : "#000"};
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: capitalize;
+    position: fixed;
+    top: 1.4%;
+    right: 80px;
+    display: ${logged ? "inline" : "none"};
+  `;
   return (
     <Styled_Header>
       <Styled_MenuBtn onClick={() => setIsHidden((prevState) => !prevState)}>
         <IoMenu />
       </Styled_MenuBtn>
+      <Styled_Name>{user}</Styled_Name>
       <Styled_ProfileBtn
         src={profile}
         logged={logged}

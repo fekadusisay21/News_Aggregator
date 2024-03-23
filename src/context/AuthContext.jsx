@@ -18,7 +18,7 @@ function AuthProvider({ children }) {
 
   const navigate = useNavigate();
   const [logged, setLogged] = useState(
-    localStorage.getItem("accessToken") ? true : true,
+    localStorage.getItem("accessToken") ? true : false
   );
   const [user, setUser] = useState(
     localStorage.getItem("user") ? localStorage.getItem("user") : ""
@@ -95,7 +95,6 @@ function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
-        name: "Fekadu",
         userData,
         setUserData,
         setUser,

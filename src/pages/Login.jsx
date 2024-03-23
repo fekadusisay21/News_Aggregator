@@ -1,72 +1,77 @@
-/* eslint-disable react/prop-types */
-// import Input from "../ui/Input";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Styled_Input, Styled_Label, InputWrapper } from "../ui/Input";
 import { useAuth } from "../context/AuthContext";
 import GoogleLogin from "../ui/GoogleLogin";
-import { useDark } from "../context/DarkContext";
 import Button from "@mui/material/Button";
+import { InputWrapper, Styled_Input, Styled_Label } from "../ui/Input";
+import { useDark } from "../context/DarkContext";
+
 const Styled_CloseBtn = styled.button`
   position: relative;
   color: red;
-  margin-left: 100%;
+  margin-left: 110%;
   font-size: 32px;
   background-color: transparent;
   border: none;
   z-index: 1;
 `;
+
+const Styled_Container = styled.div`
+  background-color: ${(props) => (props.isDark ? "#00172b" : "#ccc")};
+  padding: 0 70px;
+  padding-bottom: 60px;
+  text-align: center;
+  align-content: center;
+  border-radius: 10px;
+  margin-top: 12.5%;
+`;
+
+const Styled_Span = styled.span`
+  display: block;
+  color: ${(props) => (props.isDark ? "white" : "black")};
+  a {
+    color: ${(props) => (props.isDark ? "white" : "black")};
+    &:hover {
+      color: red;
+    }
+  }
+`;
+
+const Styled_Title = styled.h1`
+  color: ${(props) => (props.isDark ? "white" : "black")};
+  text-align: center;
+`;
+
+const Styled_Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+`;
+
 function Login() {
   const { logUser, logged } = useAuth();
-  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-  const navigate = useNavigate();
   const { isDark } = useDark();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
+
+  if (logged) return null;
+
   const onSubmit = (data) => {
     logUser(data);
   };
-  if (logged) return;
 
-  const Styled_Container = styled.div`
-  max-height: 50vh;
-    background-color: ${isDark ? "#00172b" : "#ccc"};
-    padding: 25px 50px;
-    padding-bottom: 110px;
-    text-align: center;
-    align-content: center;
-    border-radius: 10px;
-    margin-top: 12.5%;
-  `;
-  const Styled_Span = styled.span`
-    display: block;
-    color: ${isDark ? "white" : "black"};
-    a {
-      color: ${isDark ? "white" : "black"};
-      &:hover {
-        color: red;
-      }
-    }
-  `;
-
-  const Styled_Title = styled.h1`
-    color: ${isDark ? "white" : "black"};
-    text-align: center;
-    margin-bottom: 50px;
-  `;
-  // const Styled_button = styled(Button)`
-  // margin-top: 10px;
-  // `;
   return (
-    <Styled_Container>
+    <Styled_Container isDark={isDark}>
       <Styled_CloseBtn onClick={() => navigate("/")}>
         <IoIosCloseCircleOutline />
       </Styled_CloseBtn>
-      <Styled_Title>Login</Styled_Title>
-      <form action="" method="POST" onSubmit={handleSubmit(onSubmit)}>
+      <Styled_Title isDark={isDark}>Login</Styled_Title>
+      <Styled_Form onSubmit={handleSubmit(onSubmit)}>
         <InputWrapper>
           <Styled_Label
             active={isUsernameFocused}
@@ -80,12 +85,12 @@ function Login() {
             name="username"
             id="username"
             onFocus={() => setIsUsernameFocused(true)}
-            onBlur={() => setIsUsernameFocused(false)}
-            {...register("username")}
+            onBlur={() => setIsUsernameFocused(true)}
             isDark={isDark}
+            {...register("username")}
           />
         </InputWrapper>
-        <br/>
+        <br />
         <InputWrapper>
           <Styled_Label
             active={isPasswordFocused}
@@ -99,19 +104,22 @@ function Login() {
             name="password"
             id="password"
             onFocus={() => setIsPasswordFocused(true)}
-            onBlur={() => setIsPasswordFocused(false)}
+            onBlur={() => setIsPasswordFocused(true)}
             {...register("password")}
             isDark={isDark}
           />
         </InputWrapper>
-        <Styled_Span>
+        <Styled_Span isDark={isDark}>
           Are you a new user? <Link to="/signup">signup</Link>
         </Styled_Span>
-        <br/>
-        <Button variant="contained">Login</Button>
-      </form>
-    <GoogleLogin /> 
+        <br />
+        <Button variant="contained" type="submit">
+          Login
+        </Button>
+      </Styled_Form>
+      <GoogleLogin />
     </Styled_Container>
   );
 }
+
 export default Login;
