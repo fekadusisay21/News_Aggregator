@@ -11,6 +11,7 @@ import PageNotFound from "./ui/PageNotFound"
 import { AuthProvider } from "./context/AuthContext";
 import { DarkProvider } from "./context/DarkContext";
 import "./ui/index.css"
+import News from "./ui/News";
 function App() {
   return (
     <div>
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/verify" element={<VerifyEmail />} />
                 <Route path="/editprofile" element={<EditProfile />} />
+                <Route path="/news" element={<News/>}/>
                 <Route path="*" element={<PageNotFound/>}/>
               </Route>
             </Routes>

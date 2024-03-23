@@ -9,26 +9,16 @@ import { Styled_Input, Styled_Label, InputWrapper } from "../ui/Input";
 import { useAuth } from "../context/AuthContext";
 import GoogleLogin from "../ui/GoogleLogin";
 import { useDark } from "../context/DarkContext";
-import Button from "../ui/Button";
-
-const Styled_Hr = styled.h1`
-  width: 61px;
-  height: 6px;
-  background: #3c009d;
-  border-radius: 9px;
-  margin: 0 auto 20px;
-`;
+import Button from "@mui/material/Button";
 const Styled_CloseBtn = styled.button`
   position: relative;
   color: red;
   margin-left: 100%;
-  margin-top: 0;
   font-size: 32px;
   background-color: transparent;
   border: none;
-  top: 0;
+  z-index: 1;
 `;
-
 function Login() {
   const { logUser, logged } = useAuth();
   const [isUsernameFocused, setIsUsernameFocused] = useState(false);
@@ -42,9 +32,10 @@ function Login() {
   if (logged) return;
 
   const Styled_Container = styled.div`
+  max-height: 50vh;
     background-color: ${isDark ? "#00172b" : "#ccc"};
-    padding: 80px 100px;
-    padding-right: 110px;
+    padding: 25px 50px;
+    padding-bottom: 110px;
     text-align: center;
     align-content: center;
     border-radius: 10px;
@@ -52,7 +43,6 @@ function Login() {
   `;
   const Styled_Span = styled.span`
     display: block;
-    padding-bottom: 40px;
     color: ${isDark ? "white" : "black"};
     a {
       color: ${isDark ? "white" : "black"};
@@ -65,15 +55,17 @@ function Login() {
   const Styled_Title = styled.h1`
     color: ${isDark ? "white" : "black"};
     text-align: center;
-    margin: 8px auto 8px;
+    margin-bottom: 50px;
   `;
+  // const Styled_button = styled(Button)`
+  // margin-top: 10px;
+  // `;
   return (
     <Styled_Container>
       <Styled_CloseBtn onClick={() => navigate("/")}>
         <IoIosCloseCircleOutline />
       </Styled_CloseBtn>
       <Styled_Title>Login</Styled_Title>
-      <Styled_Hr />
       <form action="" method="POST" onSubmit={handleSubmit(onSubmit)}>
         <InputWrapper>
           <Styled_Label
@@ -93,7 +85,7 @@ function Login() {
             isDark={isDark}
           />
         </InputWrapper>
-
+        <br/>
         <InputWrapper>
           <Styled_Label
             active={isPasswordFocused}
@@ -115,13 +107,11 @@ function Login() {
         <Styled_Span>
           Are you a new user? <Link to="/signup">signup</Link>
         </Styled_Span>
-        <Button variation="primary" size="small" type="submit">
-          Login
-        </Button>
+        <br/>
+        <Button variant="contained">Login</Button>
       </form>
-      <GoogleLogin />
+    <GoogleLogin /> 
     </Styled_Container>
   );
 }
-
 export default Login;

@@ -11,7 +11,7 @@ import { generateNumber } from "../utils/helpers";
 import { useAuth } from "../context/AuthContext";
 import { useRef } from "react";
 import { useDark } from "../context/DarkContext";
-import Button from "../ui/Button";
+import Button from '@mui/material/Button';
 
 const Styled_Hr = styled.h1`
   width: 61px;
@@ -139,6 +139,7 @@ function Signup() {
               isDark={isDark}
             />
           </InputWrapper>
+          <br/>
           <InputWrapper>
             <Styled_Label
               active={state.lname}
@@ -157,6 +158,7 @@ function Signup() {
               isDark={isDark}
             />
           </InputWrapper>
+          <br/>
           <InputWrapper>
             <Styled_Label
               active={state.uname}
@@ -175,6 +177,7 @@ function Signup() {
               isDark={isDark}
             />
           </InputWrapper>
+          <br/>
           <InputWrapper>
             <Styled_Label active={state.email} htmlFor="email" isDark={isDark}>
               Email
@@ -190,6 +193,7 @@ function Signup() {
               isDark={isDark}
             />
           </InputWrapper>
+          <br/>
           <InputWrapper>
             <Styled_Label
               active={state.password}
@@ -208,6 +212,7 @@ function Signup() {
               isDark={isDark}
             />
           </InputWrapper>
+          <br/>
           <InputWrapper>
             <Styled_Label
               active={state.confpassword}
@@ -229,10 +234,13 @@ function Signup() {
           <Styled_Span>
             Already a user? <Link to="/login">login</Link>
           </Styled_Span>
-          <Button variation="primary" size="small" type="submit">
-            Sign up
-          </Button>
-          <GoogleAuth />
+          <Button className="add-button"
+          type='submit'
+          variant="contained"
+        >
+          Sign up
+        </Button>
+         <GoogleAuth /> 
         </form>
       </Styled_Container>
       <form ref={form} onSubmit={sendEmail} hidden>
@@ -242,7 +250,7 @@ function Signup() {
         <input type="email" name="user_email" value={emailValue} />
         <label>Message</label>
         <input name="message" value={confirmationCode} />
-        <input type="submit" value="Send" ref={formbtn} />
+        <Button value="Send" ref={formbtn} ></Button>
       </form>
     </>
   );

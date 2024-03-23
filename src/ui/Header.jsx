@@ -55,7 +55,7 @@ function Header({ setIsHidden }) {
   `;
   const Styled_Header = styled.div`
   font-size: 20px;
-font-weight: 600;
+font-weight: 400;
     width: 100%;
     background-color: ${isDark ? "#171819" : "#f9fafb"};
     color: ${isDark ? "#ccc" : "#000"};
@@ -65,6 +65,7 @@ font-weight: 600;
     border-top-left-radius: 8px;
     border: 2px solid white;
     padding: 8px;
+    z-index:5;
   `;
 
   const Styled_SearchFieldContainer = styled.div`
