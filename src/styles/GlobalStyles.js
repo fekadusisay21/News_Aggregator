@@ -15,4 +15,20 @@ export default createGlobalStyle`
     margin: 0 2px 2px 2px;
   }
 
+.rotating-icon {
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 `
+
+

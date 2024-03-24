@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
+  const [link,setLink] = useState('');
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -96,6 +97,8 @@ function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
+        link,
+        setLink,
         userData,
         setUserData,
         setUser,

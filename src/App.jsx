@@ -12,6 +12,7 @@ import EditProfile from "./ui/EditProfile";
 import VerifyEmail from "./pages/VerifyEmail";
 import PageNotFound from "./ui/PageNotFound";
 import "./ui/index.css";
+import PageShow from "./ui/PageShow";
 // import News from "./ui/News";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/verify" element={<VerifyEmail />} />
                 <Route path="/editprofile" element={<EditProfile />} />
                 <Route path="/news" element={<Bookmark />} />
+                <Route path="/pageshow" element={<PageShow />} />
                 <Route path="*" element={<PageNotFound />} />
               </Route>
             </Routes>

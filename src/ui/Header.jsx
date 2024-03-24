@@ -143,6 +143,7 @@ width:45%;
   const Styled_Container = Styled.div`
   position: fixed;
   width:100%;
+  z-index:9999;
   `;
   return (
     <>
