@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import { getNews } from "../hooks/useNews";
+import { searchNews } from "../services/api";
 import styled from "styled-components";
 import NewsCard from "./NewsCard";
 import Spinner from "./Spinner";
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../context/AuthContext";
 
 const Styled_NewsCard = styled.div`
   display: flex;
@@ -12,13 +13,15 @@ const Styled_NewsCard = styled.div`
 `;
 
 function Home() {
+  const { searchQuery } = useAuth();
+
   const { isLoading, data } = useQuery({
-    queryKey: "news",
-    queryFn: getNews,
+    queryKey: ["news", searchQuery],
+    queryFn: () => searchNews(searchQuery),
   });
 
   const filteredNews = data
-    ? data.filter((item) => item.content !== "[Removed]")
+    ? data?.filter((item) => item.content !== "[Removed]")
     : [];
 
   return (
@@ -30,7 +33,7 @@ function Home() {
           {filteredNews?.map((item) => (
             <NewsCard
               key={item.id}
-              NewsImg={item.urlToImage}
+              NewsImg={item.urlToImage || item.url_to_image}
               NewsTitle={item.title}
               NewsDescription={item.description}
             />

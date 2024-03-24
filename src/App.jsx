@@ -5,13 +5,14 @@ import AppLayout from "./ui/AppLayout";
 import Home from "./ui/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Bookmark from "./pages/Bookmark";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./utils/PrivateRoute";
 import EditProfile from "./ui/EditProfile";
 import VerifyEmail from "./pages/VerifyEmail";
 import PageNotFound from "./ui/PageNotFound";
 import "./ui/index.css";
-import News from "./ui/News";
+// import News from "./ui/News";
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/verify" element={<VerifyEmail />} />
                 <Route path="/editprofile" element={<EditProfile />} />
-                <Route path="/news" element={<News />} />
+                <Route path="/news" element={<Bookmark />} />
                 <Route path="*" element={<PageNotFound />} />
               </Route>
             </Routes>

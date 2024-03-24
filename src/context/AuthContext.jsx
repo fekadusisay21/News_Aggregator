@@ -15,6 +15,7 @@ function AuthProvider({ children }) {
     profile_pic: "",
   });
   const [confirmationCode, setConfirmationCode] = useState();
+  const [searchQuery, setSearchQuery] = useState("latest");
 
   const navigate = useNavigate();
   const [logged, setLogged] = useState(
@@ -106,6 +107,8 @@ function AuthProvider({ children }) {
         user,
         confirmationCode,
         setConfirmationCode,
+        setSearchQuery,
+        searchQuery,
       }}
     >
       {children}
