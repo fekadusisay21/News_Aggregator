@@ -2,10 +2,11 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+// import { jwtDecode } from "jwt-decode";
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  const [link,setLink] = useState('');
+  const [link, setLink] = useState("");
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -56,6 +57,7 @@ function AuthProvider({ children }) {
       const { access, refresh } = data;
       storeTokens(access, refresh, username);
       setLogged(true);
+      //   jwtDecode(access).user_id
       navigate("/");
       setUser(username);
       toast.success("Successfully logged in");
@@ -88,7 +90,6 @@ function AuthProvider({ children }) {
     });
     if (res.status === 201) {
       toast.success("User saved Successfully!");
-      setLogged(true);
       navigate("/login");
     } else {
       toast.error("Registration Failed!");

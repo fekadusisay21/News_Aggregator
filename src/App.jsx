@@ -13,6 +13,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import PageNotFound from "./ui/PageNotFound";
 import "./ui/index.css";
 import PageShow from "./ui/PageShow";
+import Topics from "./pages/Topics";
 // import News from "./ui/News";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/editprofile" element={<EditProfile />} />
                 <Route path="/news" element={<Bookmark />} />
                 <Route path="/pageshow" element={<PageShow />} />
+                <Route path="/topics" element={<Topics />} />
                 <Route path="*" element={<PageNotFound />} />
               </Route>
             </Routes>
