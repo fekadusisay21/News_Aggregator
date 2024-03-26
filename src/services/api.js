@@ -12,8 +12,9 @@ export async function searchNews(keyword) {
 
 export async function getNews() {
     const res = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+        "http://localhost:8000/news/list/"
+        // `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
     );
     const data = await res.json();
-    return data.articles;
+    return data;
 }

@@ -5,7 +5,7 @@ import AppLayout from "./ui/AppLayout";
 import Home from "./ui/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import Bookmark from "./pages/Bookmark";
+import Bookmark from "./pages/BookmarkedNews";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./utils/PrivateRoute";
 import EditProfile from "./ui/EditProfile";
@@ -14,6 +14,7 @@ import PageNotFound from "./ui/PageNotFound";
 import "./ui/index.css";
 import PageShow from "./ui/PageShow";
 import Topics from "./pages/Topics";
+import SavedNews from "./pages/SavedNews";
 // import News from "./ui/News";
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/news" element={<Bookmark />} />
                 <Route path="/pageshow" element={<PageShow />} />
                 <Route path="/topics" element={<Topics />} />
+                <Route path="/saved" element={<SavedNews />} />
                 <Route path="*" element={<PageNotFound />} />
               </Route>
             </Routes>

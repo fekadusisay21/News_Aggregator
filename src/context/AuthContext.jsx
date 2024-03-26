@@ -31,8 +31,19 @@ function AuthProvider({ children }) {
     localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("user", username);
   }
+  //   async function getUserInfo(id) {
+  //     const res = await fetch(`http://localhost:8000/news/users/${id}`);
+  //     const data = await res.json();
+  //     console.log(data);
+  //     if (data.last_login && confirmationCode) {
+  //       navigate("/topics");
+  //     } else {
+  //       navigate("/");
+  //     }
+  //   }
   function logout() {
     setLogged(false);
+    setConfirmationCode("");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
@@ -57,8 +68,9 @@ function AuthProvider({ children }) {
       const { access, refresh } = data;
       storeTokens(access, refresh, username);
       setLogged(true);
-      //   jwtDecode(access).user_id
-      navigate("/");
+      //   getUserInfo(jwtDecode(access).user_id);
+      if (confirmationCode) navigate("/topics");
+      else navigate("/");
       setUser(username);
       toast.success("Successfully logged in");
     } else {

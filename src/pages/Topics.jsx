@@ -7,9 +7,11 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useDark } from "../context/DarkContext";
 import { BsArrowRight } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 function Topics() {
   const { isDark } = useDark();
+  const navigate = useNavigate();
 
   const Styled_Container = styled(Card)`
     position: absolute;
@@ -74,6 +76,7 @@ function Topics() {
         .filter(([_, value]) => value)
         .map(([key, _]) => Object.keys(buttonStates).indexOf(key) + 1)
     );
+    navigate("/");
   };
 
   const Styled_Btn = Styled.div`

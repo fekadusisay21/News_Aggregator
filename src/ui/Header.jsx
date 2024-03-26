@@ -106,12 +106,12 @@ function Header({ setIsHidden }) {
   `;
 
   const Styled_Name = Styled.span`
-    color: ${isDark ? "red" : "#000"};
+    color: orangered;
     font-weight: bold;
     font-size: 16px;
     text-transform: capitalize;
     position: fixed;
-    top: 1.4%;
+    top: 2.3%;
     right: 80px;
     display: ${logged ? "inline" : "none"};
   `;
